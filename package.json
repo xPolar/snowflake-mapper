@@ -1,5 +1,5 @@
 {
-  "name": "snowflake-table-fetcher",
+  "name": "snowflake-mapper",
   "version": "1.0.0",
   "description": "Script to fetch all tables and their schemas from Snowflake",
   "main": "dist/snowflake-tables.js",

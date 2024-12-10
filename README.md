@@ -1,4 +1,4 @@
-# mode-query-engine
+# snowflake-mapper
 
 a typescript utility to fetch and analyze snowflake database schemas and tables
 
