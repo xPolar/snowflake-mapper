@@ -1,124 +1,87 @@
-# snowflake-mapper
+# snowflake mapper (rust)
 
-a typescript utility to fetch and analyze snowflake database schemas and tables
+a rust tool to fetch and map snowflake database schemas. this tool connects to your snowflake instance and generates detailed json files containing information about your databases, tables, and columns.
 
-## what does it do?
+## features
 
-this tool connects to your snowflake instance and:
-- fetches information about all databases
-- retrieves detailed table schemas
-- collects warehouse information
-- generates structured json output with comprehensive metadata
+- asynchronous snowflake operations using tokio
+- functional programming approach with immutable data structures
+- strong typing with rust's type system
+- json output for each database
+- environment variable configuration
+- detailed error handling and logging
 
 ## prerequisites
 
-- node.js (v16 or higher)
-- pnpm
-- snowflake account with appropriate access permissions
+- rust (latest stable version)
+- snowflake account with appropriate permissions
 
-## setup
+## configuration
 
-1. clone the repository
-2. install dependencies:
-```bash
-pnpm install
-```
+create a `.env` file in the project root with the following variables:
 
-3. create a `.env` file in the root directory with your snowflake credentials:
 ```env
-SNOWFLAKE_ACCOUNT=your-account
-SNOWFLAKE_USERNAME=your-username
-SNOWFLAKE_PASSWORD=your-password
-SNOWFLAKE_WAREHOUSE=your-warehouse
-SNOWFLAKE_ROLE=your-role            # optional, defaults to SALES
-SNOWFLAKE_DATABASE=your-database    # optional
+snowflake_account=your_account
+snowflake_username=your_username
+snowflake_password=your_password
+snowflake_warehouse=your_warehouse
+snowflake_database=optional_specific_database
+snowflake_role=optional_role_defaults_to_sales
 ```
 
-## usage
+## building
 
-build and run the project:
 ```bash
-pnpm build
-pnpm start
+cargo build --release
 ```
 
-for debug output, add the `--debug` flag:
+## running
+
 ```bash
-pnpm start -- --debug
+cargo run --release
 ```
 
-## type definitions
+the tool will:
 
-all typescript interfaces and types are located in `typings/index.d.ts`. the main types include:
-
-### snowflake config
-configuration for connecting to snowflake:
-```typescript
-interface SnowflakeConfig {
-    account: string;    // snowflake account identifier
-    username: string;   // snowflake username
-    password: string;   // snowflake password
-    warehouse: string;  // warehouse to use
-    database?: string;  // optional database
-    role?: string;      // optional role (defaults to SALES)
-}
-```
-
-### table info
-detailed table metadata:
-```typescript
-interface TableInfo {
-    database: string;
-    schema: string;
-    name: string;
-    type: string;
-    rowCount: number;
-    bytes: number;
-    retentionTime: number;
-    created: string;
-    lastAltered: string;
-    comment: string | null;
-    columns: readonly ColumnInfo[];
-}
-```
-
-for complete type definitions, see `typings/index.d.ts`.
+1. connect to your snowflake instance
+2. fetch database information
+3. for each database, fetch table and column information
+4. generate json files in the `output` directory
 
 ## output format
 
-the tool generates json files in the `output` directory:
-- `databases.json`: list of all accessible databases
-- `warehouses.json`: list of all available warehouses
-- `[database]/metadata.json`: metadata for each database
-- `[database]/tables.json`: detailed table information for each database
+the tool generates json files with the following structure:
 
-## project structure
-
+```json
+[
+  {
+    "database_name": "string",
+    "schema_name": "string",
+    "table_name": "string",
+    "columns": [
+      {
+        "name": "string",
+        "data_type": "string",
+        "is_nullable": boolean,
+        "character_maximum_length": number | null,
+        "numeric_precision": number | null,
+        "numeric_scale": number | null
+      }
+    ]
+  }
+]
 ```
-.
-├── src/
-│   └── snowflake-tables.ts  # main implementation
-├── typings/
-│   └── index.d.ts           # type definitions
-├── biome.json               # code style configuration
-├── package.json
-└── tsconfig.json
-```
 
-## debugging
+## error handling
 
-- check the `snowflake.log` file for detailed execution logs
-- use the `--debug` flag for verbose output
-- ensure your snowflake credentials are correct in the `.env` file
-- verify your network connection to snowflake
+the tool uses the `anyhow` crate for error handling and provides detailed error messages. all errors are properly propagated and logged using the `tracing` crate.
 
-## dependencies
+## development
 
-- `snowflake-sdk`: official snowflake node.js driver
-- `dotenv`: environment variable management
-- `typescript`: for type safety and better development experience
-- `biome`: for code formatting and linting
+this project follows rust best practices:
 
-## license
-
-mit
+- strong typing with clear struct definitions
+- trait-based abstractions for snowflake operations
+- async/await for efficient i/o operations
+- proper error handling and propagation
+- functional programming patterns where appropriate
