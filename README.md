@@ -30,8 +30,8 @@ SNOWFLAKE_ACCOUNT=your-account
 SNOWFLAKE_USERNAME=your-username
 SNOWFLAKE_PASSWORD=your-password
 SNOWFLAKE_WAREHOUSE=your-warehouse
-SNOWFLAKE_ROLE=your-role  # optional, defaults to SALES
-SNOWFLAKE_DATABASE=your-database  # optional
+SNOWFLAKE_ROLE=your-role            # optional, defaults to SALES
+SNOWFLAKE_DATABASE=your-database    # optional
 ```
 
 ## usage
@@ -60,7 +60,7 @@ interface SnowflakeConfig {
     password: string;   // snowflake password
     warehouse: string;  // warehouse to use
     database?: string;  // optional database
-    role?: string;     // optional role (defaults to SALES)
+    role?: string;      // optional role (defaults to SALES)
 }
 ```
 
@@ -99,8 +99,8 @@ the tool generates json files in the `output` directory:
 ├── src/
 │   └── snowflake-tables.ts  # main implementation
 ├── typings/
-│   └── index.d.ts          # type definitions
-├── biome.json             # code style configuration
+│   └── index.d.ts           # type definitions
+├── biome.json               # code style configuration
 ├── package.json
 └── tsconfig.json
 ```
