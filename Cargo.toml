@@ -1,0 +1,20 @@
+[package]
+name = "snowflake-mapper"
+version = "0.1.0"
+edition = "2021"
+description = "A Rust tool to fetch and map Snowflake database schemas"
+authors = ["Original author"]
+
+[dependencies]
+tokio = { version = "1.35", features = ["full"] }
+snowflake-connector-rs = "0.6"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+dotenv = "0.15"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"
+async-trait = "0.1"
+clap = { version = "4.4", features = ["derive"] }
+indicatif = "0.17"
+thiserror = "2.0.11"
