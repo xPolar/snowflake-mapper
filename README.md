@@ -1,4 +1,4 @@
-# snowflake mapper (rust)
+# snowflake mapper
 
 a rust tool to fetch and map snowflake database schemas. this tool connects to your snowflake instance and generates detailed json files containing information about your databases, tables, and columns.
 
